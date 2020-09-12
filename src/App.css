@@ -10,3 +10,8 @@
     grid-auto-columns: 2fr 10fr;
     grid-gap: 5px;
 }
+
+.site-wrapper-content {
+    grid-area: c;
+    background-color: aliceblue;
+}
