@@ -9,9 +9,7 @@ import {BrowserRouter} from "react-router-dom";
 let rerenderAll = (state) => {  //из state.js берем props
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} //передаем дальше props в state в App
-                 dispatch={store.dispatch.bind(store)} //из props достаем props.addPost и передаем в addPost функцию
-            />
+            <App state={state} dispatch={store.dispatch.bind(store)} store={store}/>
         </BrowserRouter>,
         document.getElementById('root')
     );
