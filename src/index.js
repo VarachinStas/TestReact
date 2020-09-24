@@ -1,5 +1,5 @@
 import * as serviceWorker from './serviceWorker';
-import store from "./redux/store";
+import store from "./redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -16,6 +16,9 @@ let rerenderAll = (state) => {  //из store.js берем props
 }
 
 rerenderAll(store.getState()); //перерисовка всего при КАЖДОМ изменении UI
-store.subscribe(rerenderAll); //отдаем задачу "слушать" запуск изменений функцие subscribe (Паттерн слушатель)
+store.subscribe(()=>{
+    let state = store.getState()
+    rerenderAll(state)
+}); //отдаем задачу "слушать" запуск изменений функцие subscribe (Паттерн слушатель)
 
 serviceWorker.unregister();
