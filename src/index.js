@@ -5,23 +5,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import StoreContext, {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
 
-let rerenderAll = (state) => {  //из store.js берем props
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-}
-
-rerenderAll(store.getState()); //перерисовка всего при КАЖДОМ изменении UI
-store.subscribe(() => { //отдаем задачу "слушать" запуск изменений функцие subscribe (Паттерн слушатель)
-    let state = store.getState()
-    rerenderAll(state)
-});
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>  {/*из create.store - создается
+            контекстный стор, что бы дочерние компоненты могли до него достучаться,
+            например через consumer*/}
+            <App/>
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root'));
 
 serviceWorker.unregister();
