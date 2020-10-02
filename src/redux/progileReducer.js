@@ -22,7 +22,7 @@ const profileReducer = (state = initialState, action) => {
             };
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [...state.posts, newPost], //push newPost в posts
                 newPostText: ''
             }
         }
