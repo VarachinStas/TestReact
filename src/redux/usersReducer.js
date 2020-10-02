@@ -3,13 +3,13 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
 let initialState = {
-    users: [
-        {id: 1, photoURL:'', followed: false, fullName: 'Dimon', status: 'Fire-Fire!!', location: {city: 'Muhosransk', country: 'Rusь'}},
-        {id: 2, photoURL:'', followed: true, fullName: 'Vasyan!', status: 'at home', location: {city: 'Novoross', country: 'Rusь'}},
-        {id: 3, photoURL:'', followed: false, fullName: 'Snezhanna', status: 'at work', location: {city: 'Hz', country: 'Ua'}},
-        {id: 4, photoURL:'', followed: true, fullName: 'Olegus', status: 'sleepy', location: {city: 'Mordor', country: 'Argus'}},
-        {id: 5, photoURL:'', followed: true, fullName: 'Flash', status: 'busy', location: {city: 'StarCity', country: 'Pendosia'}},
-    ]
+     users: [
+    //     {id: 1, photoURL:'batsya.JPG', followed: true, fullName: 'Batsya', status: 'Fire-Fire!!', location: {city: 'Muhosransk', country: 'Rusь'}},
+    //     {id: 2, photoURL:'CoolBoy.JPG', followed: true, fullName: 'CoolBoy', status: 'at home', location: {city: 'VRN', country: 'Rusь'}},
+    //     {id: 3, photoURL:'muu.JPG', followed: false, fullName: 'Snezhanna', status: 'at work', location: {city: 'Hz', country: 'Ua'}},
+    //     {id: 4, photoURL:'korzh.JPG', followed: true, fullName: 'Korzh', status: 'sleepy', location: {city: 'Mordor', country: 'Argus'}},
+    //     {id: 5, photoURL:'flash.jpg', followed: false, fullName: 'Flash', status: 'busy', location: {city: 'StarCity', country: 'Pendosia'}},
+     ]
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -35,9 +35,9 @@ const usersReducer = (state = initialState, action) => {
                 }),
             }
         case SET_USERS:
-            return {...state, users: [action.users, ...action.users]} //склеиваем 2 массива, старый, и новые
+            return {...state, users: [...state.users, ...action.users]} //склеиваем 2 массива, старый, и новый(дополненный)
         default:
-            return state;
+            return state
     }
 }
 export const followCreator = (userId) => ({type: FOLLOW, userId})
