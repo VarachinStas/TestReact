@@ -3,7 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
 let initialState = {
-     users: [
+     users: [ // потом после первого прохода приходят из Users.js props.state
     //     {id: 1, photoURL:'batsya.JPG', followed: true, fullName: 'Batsya', status: 'Fire-Fire!!', location: {city: 'Muhosransk', country: 'Rusь'}},
     //     {id: 2, photoURL:'CoolBoy.JPG', followed: true, fullName: 'CoolBoy', status: 'at home', location: {city: 'VRN', country: 'Rusь'}},
     //     {id: 3, photoURL:'muu.JPG', followed: false, fullName: 'Snezhanna', status: 'at work', location: {city: 'Hz', country: 'Ua'}},
