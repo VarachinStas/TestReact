@@ -11,5 +11,6 @@
 }
 
 .item a.active {
-    color: gold;
+    color: #333333;
+    font-weight: bold;
 }
