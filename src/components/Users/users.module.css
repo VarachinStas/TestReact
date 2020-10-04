@@ -3,3 +3,8 @@
     height: 70px;
     border-radius: 30px;
 }
+
+.selectedPage {
+    color: #8d66c9;
+    font-weight: bold;
+}
