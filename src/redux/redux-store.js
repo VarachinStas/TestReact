@@ -11,6 +11,7 @@ let reducers = combineReducers({
     usersPage: usersReducer
 })
 
+//создание стора с набором редьюсеров reducers
 let store = createStore(reducers)
 
 window.store = store
