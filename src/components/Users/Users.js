@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./users.module.css";
 import userPhoto from "../../assets/CoolBoy.JPG";
+import {NavLink} from "react-router-dom";
 
 //чистая контейнерная функция, всё что нужно
 //получает через пропсы и когда что-то в неё "происходит(onClick)" вызывает коллбэки
@@ -25,7 +26,10 @@ let Users = (props) => {
             props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
+                        <NavLink to={'./profile/' + u.id}>
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                 className={styles.userPhoto}/>
+                        </NavLink>
                     </div>
                     <div>
                         {u.followed
