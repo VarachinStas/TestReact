@@ -1,3 +1,5 @@
+import {usersApi} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -62,5 +64,16 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
 export const setIsLoading = (isLoading) => ({type: TOGGLE_IS_LOADING, isLoading})
 export const setIsFollowingInProgress = (isLoading, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isLoading, userId})
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true))
+        usersApi.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setIsLoading(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
 
 export default usersReducer;

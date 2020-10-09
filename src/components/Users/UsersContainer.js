@@ -2,32 +2,21 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    follow,
+    follow, getUsersThunkCreator,
     setCurrentPage, setIsFollowingInProgress, setIsLoading,
     setTotalUsersCount, setUsers, unfollow
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {usersApi} from "../../api/api";
 
 //контейнерная компонента, которая делает Ajax запросы стору
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.setIsLoading(true)
-        usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setIsLoading(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber)
-        this.props.setIsLoading(true)
-        usersApi.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.setIsLoading(false)
-            this.props.setUsers(data.items)
-        })
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -90,11 +79,7 @@ let mapStateToProps = (state) => {
 //КЛАССОВАЯ компонента UsersContainer получит всё через connect:
 //свои пропсы из mapStateToProps, а свои коллБэк диспатчи из mapDispatchToProps
 export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    setIsLoading,
-    setIsFollowingInProgress
+    follow, unfollow, setUsers,
+    setCurrentPage, setTotalUsersCount, setIsLoading,
+    setIsFollowingInProgress, getUsers: getUsersThunkCreator
 })(UsersContainer)
