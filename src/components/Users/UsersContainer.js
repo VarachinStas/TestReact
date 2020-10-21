@@ -2,12 +2,13 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    follow, getUsersThunkCreator,
-    setCurrentPage, setIsFollowingInProgress, setIsLoading,
-    setTotalUsersCount, setUsers, unfollow
+    follow, getUsers, setCurrentPage,
+    setIsFollowingInProgress, setIsLoading, unfollow
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 //контейнерная компонента, которая делает Ajax запросы стору
 class UsersContainer extends React.Component {
@@ -74,12 +75,14 @@ let mapStateToProps = (state) => {
 //         }
 //     }
 // }
-
 //Вторая контейнерная компонента, которая получается с помощью оборачивания:
 //КЛАССОВАЯ компонента UsersContainer получит всё через connect:
 //свои пропсы из mapStateToProps, а свои коллБэк диспатчи из mapDispatchToProps
-export default connect(mapStateToProps, {
-    follow, unfollow, setUsers,
-    setCurrentPage, setTotalUsersCount, setIsLoading,
-    setIsFollowingInProgress, getUsers: getUsersThunkCreator
-})(UsersContainer)
+
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+        follow, unfollow, setCurrentPage, setIsLoading,
+        setIsFollowingInProgress, getUsers
+    })
+)(UsersContainer)

@@ -57,21 +57,44 @@ const usersReducer = (state = initialState, action) => {
             return state
     }
 }
-export const follow = (userId) => ({type: FOLLOW, userId})
-export const unfollow = (userId) => ({type: UNFOLLOW, userId})
+export const followSuccess = (userId) => ({type: FOLLOW, userId})
+export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId})
 export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount})
 export const setIsLoading = (isLoading) => ({type: TOGGLE_IS_LOADING, isLoading})
 export const setIsFollowingInProgress = (isLoading, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isLoading, userId})
-
-export const getUsersThunkCreator = (currentPage, pageSize) => {
+//thunk
+export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(setIsLoading(true))
         usersApi.getUsers(currentPage, pageSize).then(data => {
             dispatch(setIsLoading(false))
             dispatch(setUsers(data.items))
+            dispatch(setCurrentPage(currentPage))
             dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+export const unfollow = (userID) => {
+    return (dispatch) => {
+        dispatch(setIsFollowingInProgress(true, userID))
+        usersApi.unfollow(userID).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(unfollowSuccess(userID))
+            }
+            dispatch(setIsFollowingInProgress(false, userID))
+        })
+    }
+}
+export const follow = (userID) => {
+    return (dispatch) => {
+        dispatch(setIsFollowingInProgress(true, userID))
+        usersApi.follow(userID).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(followSuccess(userID))
+            }
+            dispatch(setIsFollowingInProgress(false, userID))
         })
     }
 }
